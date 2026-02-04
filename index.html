@@ -3,315 +3,522 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Your Name - Portfolio</title>
+    <title>Java Backend Developer | Pixel Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        :root {
-            --primary: #2563eb;
-            --secondary: #1e40af;
-            --light: #f8fafc;
-            --dark: #1e293b;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            font-family: 'Courier New', monospace;
+            image-rendering: pixelated;
         }
-        
+
+        :root {
+            --primary: #2a9d8f;
+            --secondary: #264653;
+            --accent: #e9c46a;
+            --danger: #e76f51;
+            --light: #f1faee;
+            --dark: #1d3557;
+            --pixel-size: 4px;
+        }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background-color: #0a192f;
+            color: var(--light);
             line-height: 1.6;
-            color: var(--dark);
-            background: var(--light);
+            padding: 20px;
+            background-image: 
+                linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="2" height="2" x="50" y="50" fill="%232a9d8f" opacity="0.2"/></svg>');
         }
-        
+
         .container {
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
-        }
-        
-        /* Header */
-        header {
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            color: white;
-            padding: 100px 0;
-            text-align: center;
-        }
-        
-        .profile-img {
-            width: 180px;
-            height: 180px;
-            border-radius: 50%;
-            border: 5px solid white;
-            margin-bottom: 30px;
-            object-fit: cover;
-        }
-        
-        /* Sections */
-        section {
-            padding: 80px 0;
-        }
-        
-        section:nth-child(even) {
-            background: white;
-        }
-        
-        h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-        }
-        
-        h2 {
-            font-size: 2.5rem;
-            margin-bottom: 40px;
-            color: var(--primary);
+            border: var(--pixel-size) solid var(--primary);
+            background-color: rgba(15, 30, 55, 0.95);
+            box-shadow: 8px 8px 0px rgba(42, 157, 143, 0.3);
             position: relative;
-            display: inline-block;
         }
-        
-        h2:after {
+
+        /* Pixel border effect */
+        .container::before, .container::after {
             content: '';
             position: absolute;
-            bottom: -10px;
-            left: 0;
-            width: 60px;
-            height: 4px;
-            background: var(--primary);
+            width: var(--pixel-size);
+            height: var(--pixel-size);
+            background-color: var(--accent);
         }
-        
-        /* Projects */
-        .projects-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+
+        .container::before {
+            top: -8px;
+            left: -8px;
+            box-shadow: 
+                0 12px 0 var(--accent),
+                12px 0 0 var(--accent),
+                12px 12px 0 var(--accent);
         }
-        
-        .project-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
-            transition: transform 0.3s ease;
-        }
-        
-        .project-card:hover {
-            transform: translateY(-10px);
-        }
-        
-        .project-img {
-            width: 100%;
-            height: 200px;
-            object-fit: cover;
-        }
-        
-        .project-content {
-            padding: 25px;
-        }
-        
-        /* Skills */
-        .skills-list {
+
+        /* Header */
+        header {
+            background-color: var(--secondary);
+            padding: 20px;
+            border-bottom: var(--pixel-size) solid var(--primary);
             display: flex;
-            flex-wrap: wrap;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
             gap: 15px;
-            margin-top: 20px;
         }
-        
-        .skill-tag {
-            background: var(--primary);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 50px;
-            font-size: 0.9rem;
+
+        .logo-icon {
+            width: 50px;
+            height: 50px;
+            background-color: var(--primary);
+            position: relative;
+            transform: rotate(45deg);
         }
-        
-        /* Contact */
-        .contact-links {
+
+        .logo-icon::before {
+            content: '';
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: var(--accent);
+            top: 10px;
+            left: 10px;
+        }
+
+        .logo-text h1 {
+            font-size: 24px;
+            color: var(--accent);
+            text-shadow: 2px 2px 0px var(--danger);
+            letter-spacing: 1px;
+        }
+
+        .logo-text p {
+            color: var(--light);
+            font-size: 14px;
+            letter-spacing: 2px;
+        }
+
+        /* Navigation */
+        nav ul {
             display: flex;
+            list-style: none;
             gap: 20px;
-            flex-wrap: wrap;
-            margin-top: 30px;
         }
-        
-        .contact-link {
-            display: inline-flex;
+
+        nav a {
+            color: var(--light);
+            text-decoration: none;
+            padding: 8px 12px;
+            border: 2px solid transparent;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+
+        nav a:hover {
+            border: 2px solid var(--accent);
+            color: var(--accent);
+        }
+
+        /* Main Content */
+        .main-content {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 30px;
+            padding: 30px;
+        }
+
+        section {
+            margin-bottom: 30px;
+        }
+
+        h2 {
+            color: var(--primary);
+            font-size: 22px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--primary);
+            position: relative;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            width: 50px;
+            height: 4px;
+            background-color: var(--accent);
+            bottom: -2px;
+            left: 0;
+        }
+
+        .card {
+            background-color: rgba(29, 53, 87, 0.6);
+            padding: 20px;
+            border: 2px solid var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .experience-item {
+            margin-bottom: 25px;
+        }
+
+        .experience-item h3 {
+            color: var(--accent);
+            margin-bottom: 8px;
+            display: flex;
             align-items: center;
             gap: 10px;
+        }
+
+        .experience-item h3 i {
             color: var(--primary);
-            text-decoration: none;
-            font-size: 1.1rem;
-            padding: 12px 25px;
+        }
+
+        .experience-date {
+            color: var(--danger);
+            font-size: 14px;
+            margin-bottom: 10px;
+            display: block;
+        }
+
+        /* Skills & Tools Grid */
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .skill-item {
+            background-color: rgba(42, 157, 143, 0.2);
             border: 2px solid var(--primary);
-            border-radius: 50px;
-            transition: all 0.3s ease;
+            padding: 15px 10px;
+            text-align: center;
+            transition: transform 0.3s;
         }
-        
-        .contact-link:hover {
-            background: var(--primary);
-            color: white;
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent);
         }
-        
+
+        .skill-logo {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--accent);
+        }
+
+        .skill-name {
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        /* Database section */
+        .db-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .db-item {
+            background-color: rgba(231, 111, 81, 0.1);
+            border: 2px solid var(--danger);
+            padding: 15px 10px;
+            text-align: center;
+        }
+
+        .db-logo {
+            font-size: 32px;
+            margin-bottom: 10px;
+            color: var(--danger);
+        }
+
+        /* Contact */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .contact-icon {
+            width: 40px;
+            height: 40px;
+            background-color: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 20px;
+        }
+
         /* Footer */
         footer {
-            background: var(--dark);
-            color: white;
+            background-color: var(--secondary);
+            padding: 20px;
             text-align: center;
-            padding: 40px 0;
+            border-top: var(--pixel-size) solid var(--primary);
+            font-size: 14px;
         }
-        
+
+        .pixel-border {
+            width: 100%;
+            height: 4px;
+            background: repeating-linear-gradient(
+                90deg,
+                var(--primary) 0px,
+                var(--primary) 4px,
+                transparent 4px,
+                transparent 8px
+            );
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
-            h1 { font-size: 2.5rem; }
-            h2 { font-size: 2rem; }
-            section { padding: 60px 0; }
+            .main-content {
+                grid-template-columns: 1fr;
+            }
+            
+            header {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
         }
     </style>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-    <!-- HEADER -->
-    <header>
-        <div class="container">
-            <!-- CHANGE THIS IMAGE -->
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                 alt="Your Photo" class="profile-img">
-            <h1>Ramachandran Kalairajan</h1>
-            <p style="font-size: 1.5rem; opacity: 0.9;">JAVA | Back-End Developer</p>
-            <p style="margin-top: 20px; max-width: 600px; margin-left: auto; margin-right: auto;">
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <div class="logo">
+                <div class="logo-icon"></div>
+                <div class="logo-text">
+                    <h1>JAVA DEV</h1>
+                    <p>BACKEND DEVELOPER</p>
+                </div>
+            </div>
+            <nav>
+                <ul>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#tools">Tools</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <!-- Main Content -->
+        <div class="main-content">
+            <!-- Left Column -->
+            <div class="left-column">
+                <!-- About Section -->
+                <section id="about">
+                    <h2><i class="fas fa-user"></i> ABOUT ME</h2>
+                    <div class="card">
+                        <p>Java Backend Developer with 2 years of experience specializing in HCM and ERP-based web applications. Passionate about building efficient, scalable server-side solutions and implementing robust database architectures.</p>
+                        <p>Strong understanding of software development lifecycle, from requirements gathering to deployment and monitoring. Experienced in working with distributed systems and microservices architecture.</p>
+                    </div>
+                </section>
+
+                <!-- Experience Section -->
+                <section id="experience">
+                    <h2><i class="fas fa-briefcase"></i> EXPERIENCE</h2>
+                    
+                    <div class="experience-item card">
+                        <h3><i class="fas fa-laptop-code"></i> Java Backend Developer</h3>
+                        <span class="experience-date">2022 - Present | ERP/HCM Solutions</span>
+                        <p>Developed and maintained backend services for enterprise-level HCM and ERP web applications using Java and Spring Framework.</p>
+                        <p>Designed and optimized database schemas, wrote complex SQL queries, and implemented data access layers for PostgreSQL and Redis.</p>
+                        <p>Collaborated with frontend developers to design RESTful APIs and ensure seamless integration between frontend and backend systems.</p>
+                    </div>
+
+                    <div class="experience-item card">
+                        <h3><i class="fas fa-server"></i> Backend Systems</h3>
+                        <span class="experience-date">Key Contributions</span>
+                        <p>Implemented microservices architecture for an HCM system, improving scalability and maintainability.</p>
+                        <p>Developed reporting modules with complex SQL queries and optimized database performance for large datasets.</p>
+                        <p>Integrated monitoring solutions (Grafana/Prometheus) to track system performance and application metrics.</p>
+                    </div>
+                </section>
+            </div>
+
+            <!-- Right Column -->
+            <div class="right-column">
+                <!-- Skills Section -->
+                <section id="skills">
+                    <h2><i class="fas fa-code"></i> TECHNICAL SKILLS</h2>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <i class="fab fa-java"></i>
+                            </div>
+                            <div class="skill-name">Java</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="skill-name">SQL</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <i class="fab fa-html5"></i>
+                            </div>
+                            <div class="skill-name">HTML5</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <i class="fab fa-css3-alt"></i>
+                            </div>
+                            <div class="skill-name">CSS3</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Tools Section -->
+                <section id="tools">
+                    <h2><i class="fas fa-tools"></i> TOOLS & TECHNOLOGIES</h2>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <i class="fab fa-git-alt"></i>
+                            </div>
+                            <div class="skill-name">Git</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <i class="fab fa-docker"></i>
+                            </div>
+                            <div class="skill-name">Docker</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <i class="fab fa-jenkins"></i>
+                            </div>
+                            <div class="skill-name">Jenkins</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="skill-name">Grafana</div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-logo">
+                                <i class="fas fa-chart-bar"></i>
+                            </div>
+                            <div class="skill-name">Prometheus</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Databases Section -->
+                <section id="databases">
+                    <h2><i class="fas fa-database"></i> DATABASES</h2>
+                    <div class="db-grid">
+                        <div class="db-item">
+                            <div class="db-logo">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="skill-name">PostgreSQL</div>
+                        </div>
+                        <div class="db-item">
+                            <div class="db-logo">
+                                <i class="fas fa-bolt"></i>
+                            </div>
+                            <div class="skill-name">Redis</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Contact Section -->
+                <section id="contact">
+                    <h2><i class="fas fa-envelope"></i> CONTACT</h2>
+                    <div class="card contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div>dev@javabackend.pixel</div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-linkedin"></i>
+                            </div>
+                            <div>/in/javadev-erp</div>
+                        </div>
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-github"></i>
+                            </div>
+                            <div>github.com/javadev-erp</div>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <footer>
+            <div class="pixel-border"></div>
+            <p>© 2023 Java Backend Developer Portfolio | Pixel Retro Theme</p>
+            <p>HCM & ERP Systems | Microservices | Scalable Backends</p>
+        </footer>
+    </div>
+
+    <script>
+        // Simple smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
                 
-            </p>
-        </div>
-    </header>
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            });
+        });
 
-    <!-- ABOUT SECTION -->
-    <section class="about">
-        <div class="container">
-            <h2>About Me</h2>
-            <div style="max-width: 800px; font-size: 1.1rem;">
-                <p style="margin-bottom: 20px;">
-                    <!-- EDIT THIS TEXT -->
-                    Hello! I'm a passionate developer with experience in web technologies. 
-                    I love creating solutions that make a difference.
-                </p>
-                <p>
-                    I specialize in front-end development with a focus on user experience and 
-                    clean, maintainable code. Always learning and adapting to new technologies.
-                </p>
-            </div>
-        </div>
-    </section>
-
-    <!-- PROJECTS SECTION -->
-    <section style="background: #f1f5f9;">
-        <div class="container">
-            <h2>My Projects</h2>
-            <div class="projects-grid">
-                <!-- PROJECT 1 -->
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                         alt="Project 1" class="project-img">
-                    <div class="project-content">
-                        <h3>E-Commerce Website</h3>
-                        <p style="margin: 15px 0; color: #64748b;">
-                            A full-featured online store with shopping cart, user authentication, and payment integration.
-                        </p>
-                        <div class="skills-list">
-                            <span class="skill-tag">React</span>
-                            <span class="skill-tag">Node.js</span>
-                            <span class="skill-tag">MongoDB</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PROJECT 2 -->
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                         alt="Project 2" class="project-img">
-                    <div class="project-content">
-                        <h3>Task Management App</h3>
-                        <p style="margin: 15px 0; color: #64748b;">
-                            Productivity application for managing tasks, deadlines, and team collaboration.
-                        </p>
-                        <div class="skills-list">
-                            <span class="skill-tag">Vue.js</span>
-                            <span class="skill-tag">Express</span>
-                            <span class="skill-tag">PostgreSQL</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- PROJECT 3 -->
-                <div class="project-card">
-                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-4.0.3&auto=format&fit=crop&w=500&q=80" 
-                         alt="Project 3" class="project-img">
-                    <div class="project-content">
-                        <h3>Data Visualization Dashboard</h3>
-                        <p style="margin: 15px 0; color: #64748b;">
-                            Interactive dashboard for displaying and analyzing complex data sets with real-time updates.
-                        </p>
-                        <div class="skills-list">
-                            <span class="skill-tag">D3.js</span>
-                            <span class="skill-tag">Python</span>
-                            <span class="skill-tag">Flask</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- SKILLS SECTION -->
-    <section class="skills">
-        <div class="container">
-            <h2>Skills</h2>
-            <div class="skills-list">
-                <!-- EDIT THESE SKILLS -->
-                <span class="skill-tag">HTML/CSS</span>
-                <span class="skill-tag">JavaScript</span>
-                <span class="skill-tag">React</span>
-                <span class="skill-tag">Node.js</span>
-                <span class="skill-tag">Python</span>
-                <span class="skill-tag">UI/UX Design</span>
-                <span class="skill-tag">Git</span>
-                <span class="skill-tag">Responsive Design</span>
-                <span class="skill-tag">SQL</span>
-                <span class="skill-tag">TypeScript</span>
-            </div>
-        </div>
-    </section>
-
-    <!-- CONTACT SECTION -->
-    <section style="background: #f1f5f9;">
-        <div class="container">
-            <h2>Get In Touch</h2>
-            <p style="font-size: 1.2rem; margin-bottom: 30px; max-width: 600px;">
-                I'm always open to discussing new opportunities, creative projects, or just chatting about tech!
-            </p>
-            <div class="contact-links">
-                <!-- EDIT THESE LINKS -->
-                <a href="mailto:youremail@example.com" class="contact-link">
-                    <i class="fas fa-envelope"></i> youremail@example.com
-                </a>
-                <a href="https://linkedin.com/in/yourprofile" class="contact-link" target="_blank">
-                    <i class="fab fa-linkedin"></i> LinkedIn
-                </a>
-                <a href="https://github.com/yourusername" class="contact-link" target="_blank">
-                    <i class="fab fa-github"></i> GitHub
-                </a>
-                <a href="your-resume.pdf" class="contact-link">
-                    <i class="fas fa-file-pdf"></i> Download Resume
-                </a>
-            </div>
-        </div>
-    </section>
-
-    <!-- FOOTER -->
-    <footer>
-        <div class="container">
-            <p style="margin-bottom: 20px;">&copy; 2024 Your Name. All rights reserved.</p>
-            <p style="opacity: 0.8;">Built with ❤️ and GitHub Pages</p>
-        </div>
-    </footer>
+        // Add some retro terminal effect to the header
+        const headerText = document.querySelector('.logo-text h1');
+        const originalText = headerText.textContent;
+        headerText.textContent = '';
+        
+        let i = 0;
+        const typeWriter = () => {
+            if (i < originalText.length) {
+                headerText.textContent += originalText.charAt(i);
+                i++;
+                setTimeout(typeWriter, 100);
+            }
+        };
+        
+        // Start typing effect after a short delay
+        setTimeout(typeWriter, 500);
+    </script>
 </body>
 </html>
