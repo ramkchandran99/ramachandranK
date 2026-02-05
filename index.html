@@ -3,251 +3,261 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Java Backend Developer | Pixel Portfolio</title>
+    <title>Ram | Spring Boot Developer</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
+        :root {
+            --bg-color: #121212;
+            --surface-color: #1e1e1e;
+            --text-color: #ffffff;
+            --accent-color: #4CAF50;
+            --secondary-color: #9e9e9e;
+            --border-color: #333333;
+        }
+
+        .light-theme {
+            --bg-color: #f5f5f5;
+            --surface-color: #ffffff;
+            --text-color: #121212;
+            --accent-color: #388E3C;
+            --secondary-color: #757575;
+            --border-color: #e0e0e0;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
-            image-rendering: pixelated;
-        }
-
-        :root {
-            --primary: #2a9d8f;
-            --secondary: #264653;
-            --accent: #e9c46a;
-            --danger: #e76f51;
-            --light: #f1faee;
-            --dark: #1d3557;
-            --pixel-size: 4px;
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
 
         body {
-            background-color: #070808;
-            color: var(--light);
+            background-color: var(--bg-color);
+            color: var(--text-color);
             line-height: 1.6;
             padding: 20px;
-            background-image: 
-                linear-gradient(rgba(10, 25, 47, 0.9), rgba(10, 25, 47, 0.9)),
-                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="2" height="2" x="50" y="50" fill="%232a9d8f" opacity="0.2"/></svg>');
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
         }
 
         .container {
             max-width: 1200px;
-            margin: 0 auto;
-            border: var(--pixel-size) solid var(--primary);
-            background-color: rgba(15, 30, 55, 0.95);
-            box-shadow: 8px 8px 0px rgba(42, 157, 143, 0.3);
-            position: relative;
-        }
-
-        /* Pixel border effect */
-        .container::before, .container::after {
-            content: '';
-            position: absolute;
-            width: var(--pixel-size);
-            height: var(--pixel-size);
-            background-color: var(--accent);
-        }
-
-        .container::before {
-            top: -8px;
-            left: -8px;
-            box-shadow: 
-                0 12px 0 var(--accent),
-                12px 0 0 var(--accent),
-                12px 12px 0 var(--accent);
+            width: 100%;
+            background-color: var(--surface-color);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            display: flex;
+            flex-direction: column;
+            max-height: 95vh;
         }
 
         /* Header */
         header {
-            background-color: var(--secondary);
-            padding: 20px;
-            border-bottom: var(--pixel-size) solid var(--primary);
+            padding: 30px 40px;
             display: flex;
-            align-items: center;
             justify-content: space-between;
-        }
-
-        .logo {
-            display: flex;
             align-items: center;
-            gap: 15px;
-        }
-
-        .logo-icon {
-            width: 50px;
-            height: 50px;
-            background-color: var(--primary);
-            position: relative;
-            transform: rotate(45deg);
-        }
-
-        .logo-icon::before {
-            content: '';
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: var(--accent);
-            top: 10px;
-            left: 10px;
+            border-bottom: 1px solid var(--border-color);
         }
 
         .logo-text h1 {
-            font-size: 24px;
-            color: var(--accent);
-            text-shadow: 2px 2px 0px var(--danger);
-            letter-spacing: 1px;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: var(--accent-color);
         }
 
         .logo-text p {
-            color: var(--light);
-            font-size: 14px;
-            letter-spacing: 2px;
+            font-size: 16px;
+            color: var(--secondary-color);
         }
 
-        /* Navigation */
-        nav ul {
+        .theme-toggle {
+            background: none;
+            border: 1px solid var(--border-color);
+            color: var(--text-color);
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            cursor: pointer;
             display: flex;
-            list-style: none;
-            gap: 20px;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
         }
 
-        nav a {
-            color: var(--light);
-            text-decoration: none;
-            padding: 8px 12px;
-            border: 2px solid transparent;
-            font-weight: bold;
-            transition: all 0.3s;
-        }
-
-        nav a:hover {
-            border: 2px solid var(--accent);
-            color: var(--accent);
+        .theme-toggle:hover {
+            background-color: var(--border-color);
         }
 
         /* Main Content */
         .main-content {
             display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 30px;
-            padding: 30px;
+            grid-template-columns: 1fr 1fr;
+            gap: 0;
+            flex-grow: 1;
+            overflow: hidden;
+        }
+
+        .left-column, .right-column {
+            padding: 40px;
+            overflow-y: auto;
+            max-height: 55vh;
+        }
+
+        .left-column {
+            border-right: 1px solid var(--border-color);
         }
 
         section {
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
 
         h2 {
-            color: var(--primary);
-            font-size: 22px;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid var(--primary);
-            position: relative;
-        }
-
-        h2::after {
-            content: '';
-            position: absolute;
-            width: 50px;
-            height: 4px;
-            background-color: var(--accent);
-            bottom: -2px;
-            left: 0;
-        }
-
-        .card {
-            background-color: rgba(29, 53, 87, 0.6);
-            padding: 20px;
-            border: 2px solid var(--primary);
-            margin-bottom: 20px;
-        }
-
-        .experience-item {
-            margin-bottom: 25px;
-        }
-
-        .experience-item h3 {
-            color: var(--accent);
-            margin-bottom: 8px;
+            font-size: 20px;
+            font-weight: 600;
+            margin-bottom: 24px;
             display: flex;
             align-items: center;
             gap: 10px;
+            color: var(--accent-color);
+        }
+
+        h2 i {
+            font-size: 20px;
+            width: 24px;
+        }
+
+        .about-text {
+            font-size: 16px;
+            line-height: 1.7;
+            color: var(--text-color);
+            margin-bottom: 20px;
+        }
+
+        /* Experience */
+        .experience-item {
+            margin-bottom: 28px;
+        }
+
+        .experience-item h3 {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: var(--text-color);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .experience-item h3 i {
-            color: var(--primary);
+            color: var(--accent-color);
         }
 
         .experience-date {
-            color: var(--danger);
-            font-size: 14px;
-            margin-bottom: 10px;
             display: block;
+            font-size: 14px;
+            color: var(--secondary-color);
+            margin-bottom: 12px;
         }
 
-        /* Skills & Tools Grid */
+        .experience-item p {
+            font-size: 15px;
+            color: var(--text-color);
+            opacity: 0.9;
+        }
+
+        /* Projects */
+        .project-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .project-card {
+            background-color: rgba(76, 175, 80, 0.05);
+            border-radius: 8px;
+            padding: 20px;
+            border: 1px solid var(--border-color);
+        }
+
+        .project-card h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 10px;
+            color: var(--accent-color);
+        }
+
+        .project-card p {
+            font-size: 14px;
+            color: var(--text-color);
+            opacity: 0.9;
+            margin-bottom: 15px;
+            line-height: 1.5;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .tech-tag {
+            background-color: rgba(76, 175, 80, 0.1);
+            color: var(--accent-color);
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+
+        /* Skills Grid */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
         }
 
         .skill-item {
-            background-color: rgba(42, 157, 143, 0.2);
-            border: 2px solid var(--primary);
-            padding: 15px 10px;
             text-align: center;
-            transition: transform 0.3s;
+            padding: 15px 10px;
+            border-radius: 8px;
+            background-color: rgba(158, 158, 158, 0.05);
+            border: 1px solid var(--border-color);
         }
 
-        .skill-item:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent);
+        .skill-item i {
+            font-size: 28px;
+            margin-bottom: 12px;
         }
 
-        .skill-logo {
-            font-size: 32px;
-            margin-bottom: 10px;
-            color: var(--accent);
-        }
+        .spring { color: #6db33f; }
+        .security { color: #ff9800; }
+        .database { color: #2196F3; }
+        .cloud { color: #00bcd4; }
+        .java { color: #f89820; }
+        .api { color: #9c27b0; }
+        .git { color: #F4511E; }
+        .docker { color: #2496ED; }
+        .jenkins { color: #D33833; }
+        .grafana { color: #F46800; }
+        .prometheus { color: #E6522C; }
+        .maven { color: #C71A36; }
 
         .skill-name {
             font-size: 14px;
-            font-weight: bold;
-        }
-
-        /* Database section */
-        .db-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-            gap: 15px;
-            margin-top: 15px;
-        }
-
-        .db-item {
-            background-color: rgba(231, 111, 81, 0.1);
-            border: 2px solid var(--danger);
-            padding: 15px 10px;
-            text-align: center;
-        }
-
-        .db-logo {
-            font-size: 32px;
-            margin-bottom: 10px;
-            color: var(--danger);
+            font-weight: 500;
         }
 
         /* Contact */
         .contact-info {
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 20px;
         }
 
         .contact-item {
@@ -259,50 +269,87 @@
         .contact-icon {
             width: 40px;
             height: 40px;
-            background-color: var(--primary);
+            background-color: rgba(76, 175, 80, 0.1);
+            border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--light);
-            font-size: 20px;
+            color: var(--accent-color);
+        }
+
+        .contact-details {
+            font-size: 15px;
+            color: var(--text-color);
         }
 
         /* Footer */
         footer {
-            background-color: var(--secondary);
-            padding: 20px;
+            padding: 20px 40px;
             text-align: center;
-            border-top: var(--pixel-size) solid var(--primary);
+            border-top: 1px solid var(--border-color);
+            color: var(--secondary-color);
             font-size: 14px;
         }
 
-        .pixel-border {
-            width: 100%;
-            height: 4px;
-            background: repeating-linear-gradient(
-                90deg,
-                var(--primary) 0px,
-                var(--primary) 4px,
-                transparent 4px,
-                transparent 8px
-            );
+        /* Responsive */
+        @media (max-width: 900px) {
+            .main-content {
+                grid-template-columns: 1fr;
+                overflow-y: auto;
+                max-height: none;
+            }
+            
+            .left-column {
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+                max-height: none;
+            }
+            
+            .left-column, .right-column {
+                max-height: none;
+                overflow-y: visible;
+            }
+            
+            body {
+                padding: 10px;
+            }
+            
+            .container {
+                max-height: none;
+            }
         }
 
-        /* Responsive */
-        @media (max-width: 768px) {
-            .main-content {
+        @media (max-width: 600px) {
+            .project-grid, .skills-grid {
                 grid-template-columns: 1fr;
             }
             
             header {
                 flex-direction: column;
+                align-items: flex-start;
                 gap: 20px;
             }
             
-            nav ul {
-                flex-wrap: wrap;
-                justify-content: center;
+            .left-column, .right-column {
+                padding: 30px 20px;
             }
+        }
+
+        /* Scrollbar styling */
+        .left-column::-webkit-scrollbar, 
+        .right-column::-webkit-scrollbar {
+            width: 6px;
+        }
+        
+        .left-column::-webkit-scrollbar-track, 
+        .right-column::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        
+        .left-column::-webkit-scrollbar-thumb, 
+        .right-column::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 3px;
         }
     </style>
 </head>
@@ -310,22 +357,13 @@
     <div class="container">
         <!-- Header -->
         <header>
-            <div class="logo">
-                <div class="logo-icon"></div>
-                <div class="logo-text">
-                    <h1>JAVA DEV</h1>
-                    <p>BACKEND DEVELOPER</p>
-                </div>
+            <div class="logo-text">
+                <h1>Hello World! I'm Ram</h1>
+                <p>Backend Developer (Java / Spring Boot)</p>
             </div>
-            <nav>
-                <ul>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#experience">Experience</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#tools">Tools</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
+            <button class="theme-toggle" id="themeToggle">
+                <i class="fas fa-moon"></i>
+            </button>
         </header>
 
         <!-- Main Content -->
@@ -334,119 +372,127 @@
             <div class="left-column">
                 <!-- About Section -->
                 <section id="about">
-                    <h2><i class="fas fa-user"></i> ABOUT ME</h2>
-                    <div class="card">
-                        <p>Java Backend Developer with 2 years of experience specializing in HCM and ERP-based web applications. Passionate about building efficient, scalable server-side solutions and implementing robust database architectures.</p>
-                        <p>Strong understanding of software development lifecycle, from requirements gathering to deployment and monitoring. Experienced in working with distributed systems and microservices architecture.</p>
+                    <h2><i class="fas fa-user"></i>ABOUT ME</h2>
+                    <div class="about-text">
+                        <p>Spring Boot Developer with 2 years of specialized experience in building HCM and ERP-based web applications. Expert in developing robust, scalable backend solutions using Spring Framework ecosystem.</p>
+                        <p>Strong focus on microservices architecture, RESTful APIs, and enterprise application patterns. Passionate about clean code, system design, and implementing best practices in backend development.</p>
                     </div>
                 </section>
 
                 <!-- Experience Section -->
                 <section id="experience">
-                    <h2><i class="fas fa-briefcase"></i> EXPERIENCE</h2>
+                    <h2><i class="fas fa-briefcase"></i>EXPERIENCE</h2>
                     
-                    <div class="experience-item card">
-                        <h3><i class="fas fa-laptop-code"></i> Java Backend Developer</h3>
-                        <span class="experience-date">2022 - Present | ERP/HCM Solutions</span>
-                        <p>Developed and maintained backend services for enterprise-level HCM and ERP web applications using Java and Spring Framework.</p>
-                        <p>Designed and optimized database schemas, wrote complex SQL queries, and implemented data access layers for PostgreSQL and Redis.</p>
-                        <p>Collaborated with frontend developers to design RESTful APIs and ensure seamless integration between frontend and backend systems.</p>
+                    <div class="experience-item">
+                        <h3><i class="fas fa-server"></i>Java Backend Developer | Spring Boot</h3>
+                        <span class="experience-date">2023 - Present | Abytz Tech Solutions</span>
+                        <p>Developed and maintained Spring Boot applications for enterprise-level HCM and ERP systems with microservices architecture.</p>
+                        <p>Implemented Spring Security for authentication/authorization, Spring Data JPA for database operations.</p>
                     </div>
+                </section>
 
-                    <div class="experience-item card">
-                        <h3><i class="fas fa-server"></i> Backend Systems</h3>
-                        <span class="experience-date">Key Contributions</span>
-                        <p>Implemented microservices architecture for an HCM system, improving scalability and maintainability.</p>
-                        <p>Developed reporting modules with complex SQL queries and optimized database performance for large datasets.</p>
-                        <p>Integrated monitoring solutions (Grafana/Prometheus) to track system performance and application metrics.</p>
+                <!-- Projects Section -->
+                <section id="projects">
+                    <h2><i class="fas fa-project-diagram"></i>SPRING BOOT PROJECTS</h2>
+                    <div class="project-grid">
+                        <div class="project-card">
+                            <h4>HR Management System</h4>
+                            <p>Spring Boot microservices for employee management, payroll, and attendance tracking.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Spring Boot</span>
+                                <span class="tech-tag">PostgreSQL</span>
+                                <span class="tech-tag">Redis</span>
+                                <span class="tech-tag">JWT</span>
+                            </div>
+                        </div>
+                        <div class="project-card">
+                            <h4>Inventory Management</h4>
+                            <p>ERP module for tracking inventory across multiple warehouses with real-time updates.</p>
+                            <div class="project-tech">
+                                <span class="tech-tag">Spring Data JPA</span>
+                                <span class="tech-tag">WebSocket</span>
+                                <span class="tech-tag">Docker</span>
+                                <span class="tech-tag">Prometheus</span>
+                            </div>
+                        </div>
                     </div>
                 </section>
             </div>
 
             <!-- Right Column -->
             <div class="right-column">
-                <!-- Skills Section -->
+                <!-- Tech Stack Section -->
                 <section id="skills">
-                    <h2><i class="fas fa-code"></i> TECHNICAL SKILLS</h2>
+                    <h2><i class="fas fa-layer-group"></i>SPRING ECOSYSTEM</h2>
                     <div class="skills-grid">
                         <div class="skill-item">
-                            <div class="skill-logo">
-                                <i class="fab fa-java"></i>
-                            </div>
-                            <div class="skill-name">Java</div>
+                            <i class="fas fa-leaf spring"></i>
+                            <div class="skill-name">Spring Boot</div>
                         </div>
                         <div class="skill-item">
-                            <div class="skill-logo">
-                                <i class="fas fa-database"></i>
-                            </div>
-                            <div class="skill-name">SQL</div>
+                            <i class="fas fa-shield-alt security"></i>
+                            <div class="skill-name">Spring Security</div>
                         </div>
                         <div class="skill-item">
-                            <div class="skill-logo">
-                                <i class="fab fa-html5"></i>
-                            </div>
-                            <div class="skill-name">HTML5</div>
+                            <i class="fas fa-database database"></i>
+                            <div class="skill-name">Spring Data JPA</div>
                         </div>
                         <div class="skill-item">
-                            <div class="skill-logo">
-                                <i class="fab fa-css3-alt"></i>
-                            </div>
-                            <div class="skill-name">CSS3</div>
+                            <i class="fas fa-cloud cloud"></i>
+                            <div class="skill-name">Spring Cloud</div>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fab fa-java java"></i>
+                            <div class="skill-name">Java 11+</div>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-code api"></i>
+                            <div class="skill-name">REST APIs</div>
                         </div>
                     </div>
                 </section>
 
                 <!-- Tools Section -->
-                <section id="tools">
-                    <h2><i class="fas fa-tools"></i> TOOLS & TECHNOLOGIES</h2>
+                <section>
+                    <h2><i class="fas fa-tools"></i>DEVOPS & TOOLS</h2>
                     <div class="skills-grid">
                         <div class="skill-item">
-                            <div class="skill-logo">
-                                <i class="fab fa-git-alt"></i>
-                            </div>
+                            <i class="fab fa-git-alt git"></i>
                             <div class="skill-name">Git</div>
                         </div>
                         <div class="skill-item">
-                            <div class="skill-logo">
-                                <i class="fab fa-docker"></i>
-                            </div>
+                            <i class="fab fa-docker docker"></i>
                             <div class="skill-name">Docker</div>
                         </div>
                         <div class="skill-item">
-                            <div class="skill-logo">
-                                <i class="fab fa-jenkins"></i>
-                            </div>
+                            <i class="fab fa-jenkins jenkins"></i>
                             <div class="skill-name">Jenkins</div>
                         </div>
                         <div class="skill-item">
-                            <div class="skill-logo">
-                                <i class="fas fa-chart-line"></i>
-                            </div>
+                            <i class="fas fa-chart-line grafana"></i>
                             <div class="skill-name">Grafana</div>
                         </div>
                         <div class="skill-item">
-                            <div class="skill-logo">
-                                <i class="fas fa-chart-bar"></i>
-                            </div>
+                            <i class="fas fa-chart-bar prometheus"></i>
                             <div class="skill-name">Prometheus</div>
+                        </div>
+                        <div class="skill-item">
+                            <i class="fas fa-cogs maven"></i>
+                            <div class="skill-name">Maven</div>
                         </div>
                     </div>
                 </section>
 
                 <!-- Databases Section -->
                 <section id="databases">
-                    <h2><i class="fas fa-database"></i> DATABASES</h2>
-                    <div class="db-grid">
-                        <div class="db-item">
-                            <div class="db-logo">
-                                <i class="fas fa-database"></i>
-                            </div>
+                    <h2><i class="fas fa-database"></i>DATABASES</h2>
+                    <div class="skills-grid">
+                        <div class="skill-item">
+                            <i class="fas fa-database database"></i>
                             <div class="skill-name">PostgreSQL</div>
                         </div>
-                        <div class="db-item">
-                            <div class="db-logo">
-                                <i class="fas fa-bolt"></i>
-                            </div>
+                        <div class="skill-item">
+                            <i class="fas fa-bolt" style="color: #ff9800;"></i>
                             <div class="skill-name">Redis</div>
                         </div>
                     </div>
@@ -454,25 +500,31 @@
 
                 <!-- Contact Section -->
                 <section id="contact">
-                    <h2><i class="fas fa-envelope"></i> CONTACT</h2>
-                    <div class="card contact-info">
+                    <h2><i class="fas fa-envelope"></i>CONTACT</h2>
+                    <div class="contact-info">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fas fa-phone"></i>
+                            </div>
+                            <div class="contact-details">+91 63818 34558</div>
+                        </div>
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fas fa-envelope"></i>
                             </div>
-                            <div>dev@javabackend.pixel</div>
+                            <div class="contact-details">ramkchandran99@gmail.com</div>
                         </div>
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fab fa-linkedin"></i>
                             </div>
-                            <div>/in/javadev-erp</div>
+                            <div class="contact-details">linkedin.com/in/ramkchandran</div>
                         </div>
                         <div class="contact-item">
                             <div class="contact-icon">
                                 <i class="fab fa-github"></i>
                             </div>
-                            <div>github.com/javadev-erp</div>
+                            <div class="contact-details">github.com/ramkchandran99</div>
                         </div>
                     </div>
                 </section>
@@ -481,44 +533,51 @@
 
         <!-- Footer -->
         <footer>
-            <div class="pixel-border"></div>
-            <p>© 2023 Java Backend Developer Portfolio | Pixel Retro Theme</p>
-            <p>HCM & ERP Systems | Microservices | Scalable Backends</p>
+            <p>© 2023 Ram | Spring Boot Developer | Backend Solutions</p>
         </footer>
     </div>
 
     <script>
-        // Simple smooth scrolling for navigation links
+        // Theme toggle functionality
+        const themeToggle = document.getElementById('themeToggle');
+        const themeIcon = themeToggle.querySelector('i');
+        
+        // Check for saved theme or prefer-color-scheme
+        const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
+        const currentTheme = localStorage.getItem('theme');
+        
+        if (currentTheme === 'light' || (!currentTheme && !prefersDarkScheme.matches)) {
+            document.body.classList.add('light-theme');
+            themeIcon.classList.remove('fa-moon');
+            themeIcon.classList.add('fa-sun');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            document.body.classList.toggle('light-theme');
+            
+            if (document.body.classList.contains('light-theme')) {
+                themeIcon.classList.remove('fa-moon');
+                themeIcon.classList.add('fa-sun');
+                localStorage.setItem('theme', 'light');
+            } else {
+                themeIcon.classList.remove('fa-sun');
+                themeIcon.classList.add('fa-moon');
+                localStorage.setItem('theme', 'dark');
+            }
+        });
+        
+        // Smooth scrolling for navigation
         document.querySelectorAll('nav a').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
-                
                 const targetId = this.getAttribute('href');
                 const targetElement = document.querySelector(targetId);
                 
-                window.scrollTo({
-                    top: targetElement.offsetTop - 20,
-                    behavior: 'smooth'
-                });
+                if (targetElement) {
+                    targetElement.scrollIntoView({ behavior: 'smooth' });
+                }
             });
         });
-
-        // Add some retro terminal effect to the header
-        const headerText = document.querySelector('.logo-text h1');
-        const originalText = headerText.textContent;
-        headerText.textContent = '';
-        
-        let i = 0;
-        const typeWriter = () => {
-            if (i < originalText.length) {
-                headerText.textContent += originalText.charAt(i);
-                i++;
-                setTimeout(typeWriter, 100);
-            }
-        };
-        
-        // Start typing effect after a short delay
-        setTimeout(typeWriter, 500);
     </script>
 </body>
 </html>
